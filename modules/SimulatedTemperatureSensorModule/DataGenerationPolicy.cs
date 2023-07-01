@@ -3,7 +3,7 @@
 
 using System;
 
-namespace SimulatedTemperatureSensorModule
+namespace SimulatedFlowSensorModule
 {
     public class DataGenerationPolicy
     {
@@ -12,28 +12,28 @@ namespace SimulatedTemperatureSensorModule
 
         public DataGenerationPolicy()
         {
-            MachineTemperatureMin = 21;
-            MachineTemperatureMax = 100;
+            MachineFlowMin = 21;
+            MachineFlowMax = 100;
             MachinePressureMin = 1;
             MachinePressureMax = 10;
-            AmbientTemperature = 21;
+            AmbientFlow = 21;
             HumidityPercentMin = 24;
             HumidityPercentMax = 27;
-            _normal = (MachinePressureMax - MachinePressureMin) / (MachineTemperatureMax - MachineTemperatureMin);
+            _normal = (MachinePressureMax - MachinePressureMin) / (MachineFlowMax - MachineFlowMin);
         }
 
-        public double MachineTemperatureMin { get; private set; }
-        public double MachineTemperatureMax { get; private set; }
+        public double MachineFlowMin { get; private set; }
+        public double MachineFlowMax { get; private set; }
         public double MachinePressureMin { get; private set; }
         public double MachinePressureMax { get; private set; }
-        public double AmbientTemperature { get; private set; }
+        public double AmbientFlow { get; private set; }
         public int HumidityPercentMin { get; private set; }
         public int HumidityPercentMax { get; set; }
 
-        public double CalculateMachineTemperature(double? currentTemperature = null)
+        public double CalculateMachineFlow(double? currentFlow = null)
         {
-            var current = currentTemperature ?? MachineTemperatureMin;
-            if(current > MachineTemperatureMax)
+            var current = currentFlow ?? MachineFlowMin;
+            if(current > MachineFlowMax)
             {
                 current += rnd.NextDouble() - 0.5; // add value between [-0.5..0.5]
             }
@@ -44,14 +44,14 @@ namespace SimulatedTemperatureSensorModule
             return current;
         }
 
-        public double CalculatePressure(double currentTemperature)
+        public double CalculatePressure(double currentFlow)
         {
-            return MachinePressureMin + ((currentTemperature - MachineTemperatureMin) * _normal);
+            return MachinePressureMin + ((currentFlow - MachineFlowMin) * _normal);
         }
 
-        public double CalculateAmbientTemperature()
+        public double CalculateAmbientFlow()
         {
-            return AmbientTemperature + rnd.NextDouble() -0.5;
+            return AmbientFlow + rnd.NextDouble() -0.5;
         }
 
         public int CalculateHumidity()
