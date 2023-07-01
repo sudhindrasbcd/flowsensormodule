@@ -5,7 +5,7 @@ using System;
 using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
 
-namespace SimulatedTemperatureSensorModule
+namespace SimulatedFlowSensorModule
 {
     public class DesiredProperties
     {
