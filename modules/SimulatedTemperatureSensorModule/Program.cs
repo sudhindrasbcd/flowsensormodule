@@ -12,7 +12,7 @@ using Microsoft.Azure.Devices.Client.Transport.Mqtt;
 using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
 
-namespace SimulatedTemperatureSensorModule
+namespace SimulatedFlowSensorModule
 {
     class Program
     {
@@ -47,7 +47,7 @@ namespace SimulatedTemperatureSensorModule
 
         /// <summary>
         /// Initializes the ModuleClient and sets up the callback to receive
-        /// messages containing temperature information
+        /// messages containing Flow information
         /// </summary>
         static async Task Init()
         {
@@ -67,7 +67,7 @@ namespace SimulatedTemperatureSensorModule
             // callback for updating desired properties through the portal or rest api
             await ioTHubModuleClient.SetDesiredPropertyUpdateCallbackAsync(onDesiredPropertiesUpdate, null);
 
-            // this direct method will allow to reset the temperature sensor values back to their initial state
+            // this direct method will allow to reset the Flow sensor values back to their initial state
             await ioTHubModuleClient.SetMethodHandlerAsync("reset", ResetMethod, null);
 
             // we don't pass ioTHubModuleClient as we're not sending any messages out to the message bus
@@ -88,13 +88,13 @@ namespace SimulatedTemperatureSensorModule
                                 IsReset = true;
                             }
 
-                            var messageBody = TemperatureDataFactory.CreateTemperatureData(counter, i, generationPolicy, IsReset);
+                            var messageBody = FlowDataFactory.CreateFlowData(counter, i, generationPolicy, IsReset);
                             IsReset = false;
                             var messageString = JsonConvert.SerializeObject(messageBody);
                             var messageBytes = Encoding.UTF8.GetBytes(messageString);
                             var message = new Message(messageBytes);
 
-                            await ioTHubModuleClient.SendEventAsync("temperatureOutput", message);
+                            await ioTHubModuleClient.SendEventAsync("FlowOutput", message);
                             Console.WriteLine($"\t{DateTime.UtcNow.ToShortDateString()} {DateTime.UtcNow.ToLongTimeString()}> Sending message: {counter}, Body: {messageString}");
                         }
                     }
@@ -118,7 +118,7 @@ namespace SimulatedTemperatureSensorModule
         {
             var response = new MethodResponse((int)HttpStatusCode.OK);
             Console.WriteLine("Received reset command via direct method invocation");
-            Console.WriteLine("Resetting temperature sensor...");
+            Console.WriteLine("Resetting Flow sensor...");
             IsReset = true;
             return Task.FromResult(response);
         }
@@ -137,7 +137,7 @@ namespace SimulatedTemperatureSensorModule
                 {
                     if (messageBody.Command == ControlCommandEnum.Reset)
                     {
-                        Console.WriteLine("Resetting temperature sensor..");
+                        Console.WriteLine("Resetting Flow sensor..");
                         IsReset = true;
                     }
                     else
