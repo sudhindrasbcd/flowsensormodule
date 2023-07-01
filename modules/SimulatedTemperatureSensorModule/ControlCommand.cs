@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace SimulatedTemperatureSensorModule
+namespace SimulatedFlowSensorModule
 {
     public enum ControlCommandEnum
     {
