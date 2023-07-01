@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace SimulatedTemperatureSensorModule
+namespace SimulatedFlowSensorModule
 {
     public class MessageBody
     {
@@ -21,8 +21,8 @@ namespace SimulatedTemperatureSensorModule
     [JsonObject("machine")]
     public class Machine
     {
-        [JsonProperty("temperature")]
-        public double Temperature { get; set; }
+        [JsonProperty("Flow")]
+        public double Flow { get; set; }
         [JsonProperty("pressure")]
         public double Pressure { get; set; }
     }
@@ -30,8 +30,8 @@ namespace SimulatedTemperatureSensorModule
     [JsonObject("ambient")]
     public class Ambient
     {
-        [JsonProperty("temperature")]
-        public double Temperature { get; set; }
+        [JsonProperty("Flow")]
+        public double Flow { get; set; }
         [JsonProperty("humidity")]
         public int Humidity { get; set; }
     }
