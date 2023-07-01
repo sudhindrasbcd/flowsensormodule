@@ -3,27 +3,27 @@
 
 using System;
 
-namespace SimulatedTemperatureSensorModule
+namespace SimulatedFlowSensorModule
 {
-    public class TemperatureDataFactory
+    public class FlowDataFactory
     {
         private static readonly Random rand = new Random();
-        private static double CurrentMachineTemperature;
+        private static double CurrentMachineFlow;
 
-        public static MessageBody CreateTemperatureData(int counter, int instanceId, DataGenerationPolicy policy, bool reset = false)
+        public static MessageBody CreateFlowData(int counter, int instanceId, DataGenerationPolicy policy, bool reset = false)
         {
             if (reset)
             {
-                TemperatureDataFactory.CurrentMachineTemperature = policy.CalculateMachineTemperature();
+                FlowDataFactory.CurrentMachineFlow = policy.CalculateMachineFlow();
             }
             else
             {
-                TemperatureDataFactory.CurrentMachineTemperature =
-                    policy.CalculateMachineTemperature(TemperatureDataFactory.CurrentMachineTemperature);
+                FlowDataFactory.CurrentMachineFlow =
+                    policy.CalculateMachineFlow(FlowDataFactory.CurrentMachineFlow);
             }
 
-            var machinePressure = policy.CalculatePressure(TemperatureDataFactory.CurrentMachineTemperature);
-            var ambientTemperature = policy.CalculateAmbientTemperature();
+            var machinePressure = policy.CalculatePressure(FlowDataFactory.CurrentMachineFlow);
+            var ambientFlow = policy.CalculateAmbientFlow();
             var ambientHumidity = policy.CalculateHumidity();
 
             var messageBody = new MessageBody
@@ -31,12 +31,12 @@ namespace SimulatedTemperatureSensorModule
                 InstanceId = instanceId,
                 Machine = new Machine
                 {
-                    Temperature = TemperatureDataFactory.CurrentMachineTemperature,
+                    Flow = FlowDataFactory.CurrentMachineFlow,
                     Pressure = machinePressure
                 },
                 Ambient = new Ambient
                 {
-                    Temperature = ambientTemperature,
+                    Flow = ambientFlow,
                     Humidity = ambientHumidity
                 },
                 TimeCreated = string.Format("{0:O}", DateTime.Now)
