@@ -24,7 +24,7 @@ namespace SimulatedFlowSensorModule
 
             var machinePressure = policy.CalculatePressure(FlowDataFactory.CurrentMachineFlow);
             var ambientFlow = policy.CalculateAmbientFlow();
-            var ambientHumidity = policy.CalculateHumidity();
+            var ambientRate = policy.CalculateRate();
 
             var messageBody = new MessageBody
             {
@@ -37,7 +37,7 @@ namespace SimulatedFlowSensorModule
                 Ambient = new Ambient
                 {
                     Flow = ambientFlow,
-                    Humidity = ambientHumidity
+                    Rate = ambientRate
                 },
                 TimeCreated = string.Format("{0:O}", DateTime.Now)
             };
