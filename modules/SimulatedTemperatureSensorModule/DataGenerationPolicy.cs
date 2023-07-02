@@ -17,8 +17,8 @@ namespace SimulatedFlowSensorModule
             MachinePressureMin = 1;
             MachinePressureMax = 10;
             AmbientFlow = 21;
-            HumidityPercentMin = 24;
-            HumidityPercentMax = 27;
+            ratePercentMin = 24;
+            ratePercentMax = 27;
             _normal = (MachinePressureMax - MachinePressureMin) / (MachineFlowMax - MachineFlowMin);
         }
 
@@ -27,8 +27,8 @@ namespace SimulatedFlowSensorModule
         public double MachinePressureMin { get; private set; }
         public double MachinePressureMax { get; private set; }
         public double AmbientFlow { get; private set; }
-        public int HumidityPercentMin { get; private set; }
-        public int HumidityPercentMax { get; set; }
+        public int ratePercentMin { get; private set; }
+        public int ratePercentMax { get; set; }
 
         public double CalculateMachineFlow(double? currentFlow = null)
         {
@@ -54,9 +54,9 @@ namespace SimulatedFlowSensorModule
             return AmbientFlow + rnd.NextDouble() -0.5;
         }
 
-        public int CalculateHumidity()
+        public int Calculaterate()
         {
-            return rnd.Next(HumidityPercentMin, HumidityPercentMax);
+            return rnd.Next(ratePercentMin, ratePercentMax);
         }
     }
 }
