@@ -19,7 +19,7 @@ You can interact with the Flow Simulator in several ways
 
 ## Output Queue Endpoints
 
-The Flow simulator is producing a simulation on machine Flow / pressure and environmental parameters like Flow and humidity. The endpoint is `FlowOutput` with the following payload
+The Flow simulator is producing a simulation on machine Flow / pressure and environmental parameters like Flow and Rate. The endpoint is `FlowOutput` with the following payload
 
 ```json
 {
@@ -30,7 +30,7 @@ The Flow simulator is producing a simulation on machine Flow / pressure and envi
     },
     "ambient": {
         "Flow": 21.195752660602217,
-        "humidity": 26
+        "Rate": 26
     },
     "timeCreated": "2018-02-09T10:53:32.2731850+00:00"
 }
