@@ -32,7 +32,7 @@ namespace SimulatedFlowSensorModule
     {
         [JsonProperty("Flow")]
         public double Flow { get; set; }
-        [JsonProperty("humidity")]
-        public int Humidity { get; set; }
+        [JsonProperty("Rate")]
+        public int Rate { get; set; }
     }
 }
